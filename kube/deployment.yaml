@@ -18,6 +18,8 @@ spec:
         image: i0nw/vorboss:latest
         imagePullPolicy: Always
         env:
+          - name: APP_NAME
+            value: vorboss
           - name: APP_ENVIRONMENT
             value: production
           - name: LOG_LEVEL
