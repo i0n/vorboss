@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vorbossi0nio-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "vorboss.i0n.io"
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: vorbossi0nio
+              port:
+                number: 8000
+  tls:
+  - hosts:
+    - vorboss.i0n.io
+    secretName: vorbossi0nio-cert

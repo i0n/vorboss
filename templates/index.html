@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <table>
+      {% for (i, r) in records.iter().enumerate() -%}
+      <tr>
+        <td>{{r.fields.order_id}}</td>
+        <td>{{r.fields.order_placed}}</td>
+        <td>{{r.fields.product_name}}</td>
+        <td>{{r.fields.price}}</td>
+        <td>{{r.fields.first_name}}</td>
+        <td>{{r.fields.last_name}}</td>
+        <td>{{r.fields.address}}</td>
+        <td>{{r.fields.email}}</td>
+        <td>{{r.fields.order_status}}</td>
+      </tr>
+      {% endfor -%}
+    </table>
+  </body>
+</html>
