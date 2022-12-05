@@ -1,8 +1,8 @@
 # vorboss
 
-**Deployment available at:** https://vorboss.i0n.io
-**CI:**
-**Docker image:** https://hub.docker.com/repository/docker/i0nw/vorboss
+- **Deployment available at:** https://vorboss.i0n.io
+- **CI:** https://app.circleci.com/pipelines/github/i0n/vorboss
+- **Docker image:** https://hub.docker.com/repository/docker/i0nw/vorboss
 
 To run locally you will need rust and/or docker.
 
