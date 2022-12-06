@@ -11,16 +11,15 @@ use axum::{
     extract::State,
     http::StatusCode,
     response::{Html, IntoResponse, Response},
-    routing::{get, get_service},
+    routing::get,
     Router,
 };
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
-use std::{io, str, time::Duration};
+use std::{str, time::Duration};
 use tokio::signal;
 use tower::{BoxError, ServiceBuilder};
 use tower_http::compression::CompressionLayer;
-use tower_http::services::ServeDir;
 use tower_http::trace::TraceLayer;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -49,7 +48,6 @@ struct IndexTemplate {
 #[derive(Debug, Clone)]
 struct AppState {
     app_config: AppConfig,
-    // records: Vec<airtable_api::Record<Order>>,
 }
 
 // Traits ///////////////////////////////////////////
@@ -105,10 +103,6 @@ async fn handle_root(State(app_state): State<AppState>) -> impl IntoResponse {
     HtmlTemplate(template)
 }
 
-async fn handle_error(_err: io::Error) -> impl IntoResponse {
-    (StatusCode::INTERNAL_SERVER_ERROR, "Something went wrong...")
-}
-
 // Main /////////////////////////////
 
 const CARGO_PKG_NAME: &str = env!("CARGO_PKG_NAME");
@@ -139,11 +133,6 @@ async fn main() {
             // Start the http server
             let app = Router::new()
                 .route("/", get(handle_root))
-                .nest_service(
-                    "/public",
-                    get_service(ServeDir::new("public")).handle_error(handle_error),
-                )
-                // Add middleware to all routes
                 .layer(
                     ServiceBuilder::new()
                         .layer(HandleErrorLayer::new(|error: BoxError| async move {
