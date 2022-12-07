@@ -20,7 +20,6 @@ jobs:
       - checkout
       - run: docker login -u i0nw -p $(echo ${DOCKERHUB_PASSWORD})
       - run: docker run -d --name vorboss -e AIRTABLE_API_KEY=${AIRTABLE_API_KEY} -p 8000:8000 i0nw/vorboss:latest
-      - run: make docker-test-functional
   deploy:
     docker:
       - image: cimg/base:stable
